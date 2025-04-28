@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 try {
                     // Use a direct URL to your server - make sure this URL is correct and accessible
                     // Update the serverUrl to match the new port
-                    const serverUrl = 'https://shopify-form-backend-rust.vercel.app'; // Changed from 3001 to 3002
+                    const serverUrl = ''; 
                     const endpoint = `${serverUrl}/api/submit-form`;
                     
                     console.log('Sending request to server:', endpoint);
