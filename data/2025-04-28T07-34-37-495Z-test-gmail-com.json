@@ -1,0 +1,6 @@
+{
+  "name": "Namrata Trivedi",
+  "email": "test@gmail.com",
+  "phone": "07874680745",
+  "message": "{\"address\":{\"street\":\"74/872 mangalmurti app,\\nnear telephone exchange,\",\"city\":\"ahemedabad\",\"state\":\"Gujarat\",\"country\":\"India\",\"zipcode\":\"380013\"},\"banking\":{\"iban\":\"sss\",\"bic\":\"ssss\"},\"purchaseDetails\":{\"ownAccount\":true,\"thirdParty\":false,\"thirdPartyName\":\"\",\"thirdPartyAddress\":\"\",\"products\":[{\"type\":\"silver\",\"unit\":\"ounce\",\"name\":\"asas\",\"weight\":\"33\",\"image\":\"\",\"price\":\"333\"}],\"subtotal\":\"333.00\"},\"agreements\":{\"terms\":true,\"cancellation\":true,\"privacy\":true}}"
+}

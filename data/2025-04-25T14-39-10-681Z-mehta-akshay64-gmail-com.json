@@ -1,0 +1,6 @@
+{
+  "name": "Akshay Mehta",
+  "email": "mehta.akshay64@gmail.com",
+  "phone": "09909789662",
+  "message": "{\"address\":{\"street\":\"132\",\"city\":\"Ahmedabad\",\"state\":\"Gujarat\",\"country\":\"India\",\"zipcode\":\"380001\"},\"banking\":{\"iban\":\"ssaas\",\"bic\":\"asasas\"},\"purchaseDetails\":{\"ownAccount\":true,\"thirdParty\":false,\"thirdPartyName\":\"\",\"thirdPartyAddress\":\"\",\"products\":[{\"type\":\"gold\",\"unit\":\"ounce\",\"name\":\"asasa\",\"weight\":\"77\",\"image\":\"\",\"price\":\"777\"}],\"subtotal\":\"777.00\"},\"agreements\":{\"terms\":true,\"cancellation\":true,\"privacy\":true}}"
+}

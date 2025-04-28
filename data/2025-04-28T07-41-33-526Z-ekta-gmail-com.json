@@ -1,0 +1,6 @@
+{
+  "name": "ekta kanani",
+  "email": "ekta@gmail.com",
+  "phone": "07874680745",
+  "message": "{\"address\":{\"street\":\"Vlasmarkt 19\",\"city\":\"Middelburg\",\"state\":\"NL\",\"country\":\"India\",\"zipcode\":\"4331\"},\"banking\":{\"iban\":\"12345678\",\"bic\":\"8858\"},\"purchaseDetails\":{\"ownAccount\":true,\"thirdParty\":false,\"thirdPartyName\":\"\",\"thirdPartyAddress\":\"\",\"products\":[{\"type\":\"gold\",\"unit\":\"ounce\",\"name\":\"sss\",\"weight\":\"50\",\"image\":\"\",\"price\":\"50\"}],\"subtotal\":\"50.00\"},\"agreements\":{\"terms\":true,\"cancellation\":true,\"privacy\":true}}"
+}
