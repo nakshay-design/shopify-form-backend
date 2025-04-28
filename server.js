@@ -6,6 +6,7 @@ const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
+const PORT = 'https://shopify-form-backend-rust.vercel.app';
 
 // Shopify API configuration
 const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
@@ -371,3 +372,8 @@ app.get('/api/submissions', (req, res) => {
   }
 });
 
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on https://shopify-form-backend-rust.vercel.app`);
+  console.log(`Form available at https://shopify-form-backend-rust.vercel.app`);
+});
