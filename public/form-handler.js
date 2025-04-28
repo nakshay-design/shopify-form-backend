@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 try {
                     // Use a direct URL to your server - make sure this URL is correct and accessible
                     // Update the serverUrl to match the new port
-                    const serverUrl = 'https://shopify-form-backend-ogl4tgrex-akshays-projects-9a455235.vercel.app/'; // Changed from 3001 to 3002
+                    const serverUrl = 'http://localhost:3001'; // Changed from 3001 to 3002
                     const endpoint = `${serverUrl}/api/submit-form`;
                     
                     console.log('Sending request to server:', endpoint);
@@ -248,26 +248,4 @@ function updateSubtotal() {
     if (subtotalCell) {
         subtotalCell.value = subtotal.toFixed(2);
     }
-}
-
-// Update the API endpoint URL to use the Vercel deployment
-const API_ENDPOINT = 'https://shopify-form-backend-ogl4tgrex-akshays-projects-9a455235.vercel.app/api/submit-form';
-
-// Use this URL for all fetch requests in your code
-// For example:
-async function submitForm(formData) {
-  try {
-    const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    });
-    
-    return await response.json();
-  } catch (error) {
-    console.error('Error submitting form:', error);
-    throw error;
-  }
 }

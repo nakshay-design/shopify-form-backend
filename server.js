@@ -42,16 +42,8 @@ if (!fs.existsSync(dataDir)) {
   }
 }
 
-// Define the base URL for the application
-const BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://shopify-form-backend-ogl4tgrex-akshays-projects-9a455235.vercel.app'
-  : `http://localhost:${PORT}`;
-
 // API endpoint to handle form submissions
 app.post('/api/submit-form', async (req, res) => {
-  console.log('Received form submission request');
-  console.log('Request body:', JSON.stringify(req.body));
-  
   try {
     const formData = req.body;
     
