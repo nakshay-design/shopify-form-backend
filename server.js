@@ -6,7 +6,6 @@ const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 // Shopify API configuration
 const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
@@ -372,8 +371,3 @@ app.get('/api/submissions', (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Form available at http://localhost:${PORT}/index.html`);
-});
