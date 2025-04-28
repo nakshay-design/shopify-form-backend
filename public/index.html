@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submissions</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl font-bold mb-6">Form Submission Data</h1>
+        
+        <div id="submissionData" class="space-y-6">
+            <div class="bg-gray-50 p-4 rounded">
+                <h2 class="text-xl font-semibold mb-4">Server Response</h2>
+                <div id="serverResponse" class="p-3 bg-blue-50 rounded">
+                    <p>Click the button below to check server status</p>
+                </div>
+                <div class="mt-4">
+                    <button id="checkServerBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        Check Server Status
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded">
+                <h2 class="text-xl font-semibold mb-4">Recent Submissions</h2>
+                <div id="dataContainer" class="space-y-4">
+                    <p class="text-gray-500 italic">Click the button below to load submissions</p>
+                </div>
+                <div class="mt-4">
+                    <button id="loadSubmissionsBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                        Load Submissions
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded">
+                <h2 class="text-xl font-semibold mb-4">Raw Server Response</h2>
+                <pre id="rawResponse" class="bg-gray-100 p-3 rounded overflow-auto text-xs h-64">
+                    No data yet. Click one of the buttons above to see raw server responses.
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update script src to use the Vercel URL -->
+    <script src="https://shopify-form-backend-ogl4tgrex-akshays-projects-9a455235.vercel.app/form-handler.js"></script>
+    
+    <!-- Update any API fetch calls in your HTML -->
+    <script>
+      // Function to fetch and display form submissions
+      async function fetchSubmissions() {
+        try {
+          const dataContainerEl = document.getElementById('dataContainer');
+          const rawResponseEl = document.getElementById('rawResponse');
+          
+          dataContainerEl.innerHTML = '<p class="text-green-500">Loading submissions...</p>';
+          
+          const response = await fetch('https://shopify-form-backend-ogl4tgrex-akshays-projects-9a455235.vercel.app/api/submissions');
+          
+          if (!response.ok) {
+              throw new Error(`API error: ${response.status}`);
+          }
+          
+          const data = await response.json();
+          
+          // Display raw response
+          rawResponseEl.textContent = JSON.stringify(data, null, 2);
+          
+          // Format and display submissions
+          if (data.submissions && data.submissions.length > 0) {
+              dataContainerEl.innerHTML = '';
+              
+              data.submissions.forEach(submission => {
+                  const submissionEl = document.createElement('div');
+                  submissionEl.className = 'border rounded p-4';
+                  
+                  // Format the submission data
+                  let submissionHtml = `
+                      <div class="flex justify-between">
+                          <h3 class="font-bold">${submission.name || submission.firstname + ' ' + submission.lastname || 'Unknown'}</h3>
+                          <span class="text-sm text-gray-500">${new Date(submission.timestamp).toLocaleString()}</span>
+                      </div>
+                      <div class="grid grid-cols-2 gap-2 mt-2">
+                          <div><span class="font-semibold">Email:</span> ${submission.email || 'N/A'}</div>
+                          <div><span class="font-semibold">Phone:</span> ${submission.phone || 'N/A'}</div>
+                      </div>
+                      <div class="mt-2">
+                          <button class="text-blue-600 hover:underline" 
+                                      onclick="toggleDetails('${submission.id}')">
+                              Show Details
+                          </button>
+                      </div>
+                      <div id="details-${submission.id}" class="hidden mt-3 pt-3 border-t">
+                          <pre class="bg-gray-100 p-2 rounded overflow-auto text-xs">${JSON.stringify(submission, null, 2)}</pre>
+                      </div>
+                  `;
+                  
+                  submissionEl.innerHTML = submissionHtml;
+                  dataContainerEl.appendChild(submissionEl);
+              });
+          } else {
+              dataContainerEl.innerHTML = '<p class="text-gray-500">No submissions found.</p>';
+          }
+      } catch (error) {
+          document.getElementById('dataContainer').innerHTML = 
+              `<p class="text-red-500">Error loading submissions: ${error.message}</p>`;
+          document.getElementById('rawResponse').textContent = `Error: ${error.message}`;
+      }
+  }
+  
+  // Function to check server status
+  async function checkServerStatus() {
+    try {
+      const serverResponseEl = document.getElementById('serverResponse');
+      const rawResponseEl = document.getElementById('rawResponse');
+      
+      serverResponseEl.innerHTML = '<p class="text-blue-500">Checking server status...</p>';
+
+      // Fixed: added const keyword before response
+      const response = await fetch('https://shopify-form-backend-ogl4tgrex-akshays-projects-9a455235.vercel.app/api/submit-form', {
+          method: 'GET'
+      });
+      
+      const data = await response.json();
+      
+      // Display formatted response
+      if (response.ok) {
+          serverResponseEl.innerHTML = `
+              <div class="flex items-center">
+                  <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Server is online: ${data.message}</span>
+              </div>
+          `;
+      } else {
+          serverResponseEl.innerHTML = `
+              <div class="flex items-center">
+                  <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Server error: ${data.error || 'Unknown error'}</span>
+          </div>
+      `;
+      }
+      
+      // Display raw response
+      rawResponseEl.textContent = JSON.stringify(data, null, 2);
+      
+  } catch (error) {
+      document.getElementById('serverResponse').innerHTML = `
+          <div class="flex items-center">
+              <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+          <span>Cannot connect to server: ${error.message}</span>
+      </div>
+      `;
+      document.getElementById('rawResponse').textContent = `Error: ${error.message}`;
+  }
+  }
+  
+  // Toggle submission details
+  function toggleDetails(id) {
+      const detailsEl = document.getElementById(`details-${id}`);
+      if (detailsEl.classList.contains('hidden')) {
+          detailsEl.classList.remove('hidden');
+      } else {
+          detailsEl.classList.add('hidden');
+      }
+  }
+  
+  // Add event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('checkServerBtn').addEventListener('click', checkServerStatus);
+      document.getElementById('loadSubmissionsBtn').addEventListener('click', fetchSubmissions);
+  });
+  </script>
+</body>
+</html>
