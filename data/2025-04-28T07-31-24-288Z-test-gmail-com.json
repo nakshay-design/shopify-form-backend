@@ -1,6 +1,0 @@
-{
-  "name": "Namrata Trivedi",
-  "email": "test@gmail.com",
-  "phone": "07874680745",
-  "message": "{\"address\":{\"street\":\"74/872 mangalmurti app,\\nnear telephone exchange,\",\"city\":\"ahemedabad\",\"state\":\"Gujarat\",\"country\":\"India\",\"zipcode\":\"380013\"},\"banking\":{\"iban\":\"556\",\"bic\":\"555\"},\"purchaseDetails\":{\"ownAccount\":true,\"thirdParty\":false,\"thirdPartyName\":\"\",\"thirdPartyAddress\":\"\",\"products\":[{\"type\":\"gold\",\"unit\":\"gram\",\"name\":\"555\",\"weight\":\"555\",\"image\":\"\",\"price\":\"555\"}],\"subtotal\":\"555.00\"},\"agreements\":{\"terms\":true,\"cancellation\":true,\"privacy\":true}}"
-}

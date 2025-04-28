@@ -1,6 +1,0 @@
-{
-  "name": "Akshay Mehta",
-  "email": "mehta.akshay64@gmail.com",
-  "phone": "09909789662",
-  "message": "{\"address\":{\"street\":\"132\\najsjnj\",\"city\":\"Ahmedabad\",\"state\":\"Gujarat\",\"country\":\"India\",\"zipcode\":\"380001\"},\"banking\":{\"iban\":\"3455\",\"bic\":\"5555\"},\"purchaseDetails\":{\"ownAccount\":true,\"thirdParty\":false,\"thirdPartyName\":\"\",\"thirdPartyAddress\":\"\",\"products\":[{\"type\":\"gold\",\"unit\":\"ounce\",\"name\":\"55\",\"weight\":\"55\",\"image\":\"\",\"price\":\"55\"}],\"subtotal\":\"55.00\"},\"agreements\":{\"terms\":true,\"cancellation\":true,\"privacy\":true}}"
-}
