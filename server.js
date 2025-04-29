@@ -109,7 +109,7 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
   `;
   console.log('formData');
   console.log(formData);
-  
+
   const variables = {
     metaobject: {
       handle,
@@ -118,7 +118,12 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
         { key: "first_name", value: formData.firstname || "" },
         { key: "last_name", value: formData.lastname || "" },
         { key: "email", value: formData.email || "" },
-        { key: "phone", value: formData.phone || "" },
+        { key: "telephone", value: formData.phone || "" },
+        { key: "street_address", value: formData.street || "" },
+        { key: "city", value: formData.city || "" },
+        { key: "state", value: formData.state || "" },
+        { key: "country", value: formData.country || "" },
+        { key: "zip_code", value: formData.zipcode || "" },
         { key: "address", value: JSON.stringify(metaData.address || {}) },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
@@ -170,7 +175,12 @@ async function createShopifyMetaobjectREST(formData, metaData) {
         { key: "first_name", value: formData.firstname || "" },
         { key: "last_name", value: formData.lastname || "" },
         { key: "email", value: formData.email || "" },
-        { key: "phone", value: formData.phone || "" },
+        { key: "telephone", value: formData.phone || "" },
+        { key: "street_address", value: formData.street || "" },
+        { key: "city", value: formData.city || "" },
+        { key: "state", value: formData.state || "" },
+        { key: "country", value: formData.country || "" },
+        { key: "zip_code", value: formData.zipcode || "" },
         { key: "address", value: JSON.stringify(metaData.address || {}) },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },

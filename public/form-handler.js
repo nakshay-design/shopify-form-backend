@@ -52,6 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     lastname: formJson.lastname || '',
                     email: formJson.email || '',
                     phone: formJson.phone || '',
+                    street: formJson.street_address || '',
+                    city: formJson.city || '',
+                    state: formJson.state || '',
+                    country: formJson.country || '',
+                    zipcode: formJson.zipcode || '',
                     meta: {
                         address: {
                             street: formJson.street_address || '',
