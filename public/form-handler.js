@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     zipcode: formJson.zipcode || '',
                     iban: formJson.iban || '',
                     bic: formJson.bic || '',
-                    ownAccount: formJson.own_account === 'on',
+                    // ownAccount: formJson.own_account === 'on',
                     // thirdParty: formJson.thirdParty === 'on',
                     // thirdPartyName: formJson.third_party_name || '',
                     // thirdPartyAddress: formJson.third_party_address || '',
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         //     bic: formJson.bic || ''
                         // },
                         purchaseDetails: {
-                            // ownAccount: formJson.own_account === 'on',
+                            ownAccount: formJson.own_account === 'on',
                             thirdParty: formJson.thirdParty === 'on',
                             thirdPartyName: formJson.third_party_name || '',
                             thirdPartyAddress: formJson.third_party_address || '',
