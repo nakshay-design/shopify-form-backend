@@ -48,26 +48,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create the payload to send to the server
                 const payload = {
-                    name: `${formJson.firstname || ''} ${formJson.lastname || ''}`,
+                    first_name: formJson.firstname || '',
+                    last_name: formJson.lastname || '',
                     email: formJson.email || '',
-                    phone: formJson.phone || '',
-                    message: JSON.stringify({
-                        address: {
-                            street: formJson.street_address || '',
-                            city: formJson.city || '',
-                            state: formJson.state || '',
-                            country: formJson.country || '',
-                            zipcode: formJson.zipcode || ''
-                        },
-                        banking: {
-                            iban: formJson.iban || '',
-                            bic: formJson.bic || ''
-                        },
+                    telephone: formJson.phone || '',
+                    street: formJson.street_address || '',
+                    city: formJson.city || '',
+                    state: formJson.state || '',
+                    country: formJson.country || '',
+                    zip_code: formJson.zipcode || '',
+                    iban: formJson.iban || '',
+                    bic: formJson.bic || '',
+                    own_account: formJson.own_account === 'on',
+                    thirdParty: formJson.thirdParty === 'on',
+                    third_party_name: formJson.third_party_name || '',
+                    third_party_name: formJson.third_party_name || '',
+                    meta: {
                         purchaseDetails: {
-                            ownAccount: formJson.own_account === 'on',
-                            thirdParty: formJson.thirdParty === 'on',
-                            thirdPartyName: formJson.third_party_name || '',
-                            thirdPartyAddress: formJson.third_party_address || '',
                             products: productItems,
                             subtotal: formJson.subtotal || '0.00'
                         },
@@ -76,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             cancellation: formJson.cancellation === 'on',
                             privacy: formJson.privacy === 'on'
                         }
-                    })
+                    }
                 };
                 
                 // Print the final payload to console
