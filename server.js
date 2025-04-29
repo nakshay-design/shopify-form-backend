@@ -94,6 +94,9 @@ app.post('/api/submit-form', async (req, res) => {
 async function createShopifyMetaobjectGraphQL(formData, metaData) {
   const handle = `form-submission-${Date.now()}`;
   
+  // Ensure purchaseDetails exists and is an array
+  const products = metaData.purchaseDetails?.products || [];
+  
   // Format purchase details as an HTML table
   const purchaseDetailsTable = `
     <table border="1">
@@ -108,7 +111,7 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
         </tr>
       </thead>
       <tbody>
-        ${metaData.purchaseDetails.products.map(product => `
+        ${products.map(product => `
           <tr>
             <td>${product.type}</td>
             <td>${product.unit}</td>
