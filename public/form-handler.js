@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         thirdPartyAddress: formJson.third_party_address || '',
                         purchaseDetails: {
                             // ownAccount: formJson.own_account === 'on',
-                            
                             products: productItems,
                             subtotal: formJson.subtotal || '0.00'
                         },

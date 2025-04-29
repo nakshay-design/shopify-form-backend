@@ -127,6 +127,9 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
         { key: "iban", value: formData.iban || "" },
         { key: "bic", value: formData.bic || "" },
         { key: "own_account", value: JSON.stringify(metaData.ownAccount || {}) },
+        { key: "third_party", value: JSON.stringify(metaData.thirdParty || {}) },
+        { key: "third_party_name", value: JSON.stringify(metaData.thirdPartyName || {}) },
+        { key: "third_party_address", value: JSON.stringify(metaData.thirdPartyAddress || {}) },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
