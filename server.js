@@ -40,29 +40,8 @@ if (!fs.existsSync(dataDir)) {
 app.post('/api/submit-form', async (req, res) => {
   try {
     const formData = req.body;
-    
-    // Log the received data
     console.log('Received form submission:', formData);
     
-    // Generate a unique filename based on timestamp and email
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const email = formData.email?.replace(/[@.]/g, '-') || 'no-email';
-    const filename = `${timestamp}-${email}.json`;
-    
-    // Save the form data to a JSON file with better formatting
-    fs.writeFileSync(
-      path.join(dataDir, filename),
-      JSON.stringify(formData, null, 2)
-    );
-    
-    // Create a more human-readable version for debugging
-    const readableFilename = `${timestamp}-${email}-readable.txt`;
-    let readableContent = `Form Submission at ${new Date().toLocaleString()}\n\n`;
-    readableContent += `Name: ${formData.name || 'Not provided'}\n`;
-    readableContent += `Email: ${formData.email || 'Not provided'}\n`;
-    readableContent += `Phone: ${formData.phone || 'Not provided'}\n\n`;
-    
-    // Parse the message JSON if it's a string
     let messageData = formData.message;
     if (typeof messageData === 'string') {
       try {
@@ -71,88 +50,16 @@ app.post('/api/submit-form', async (req, res) => {
         console.error('Error parsing message JSON:', e);
         messageData = {};
       }
-      
-      // Add address information
-      if (messageData.address) {
-        readableContent += `Address Information:\n`;
-        readableContent += `  Street: ${messageData.address.street || 'Not provided'}\n`;
-        readableContent += `  City: ${messageData.address.city || 'Not provided'}\n`;
-        readableContent += `  State: ${messageData.address.state || 'Not provided'}\n`;
-        readableContent += `  Country: ${messageData.address.country || 'Not provided'}\n`;
-        readableContent += `  Zip Code: ${messageData.address.zipcode || 'Not provided'}\n\n`;
-      }
-      
-      // Add banking information
-      if (messageData.banking) {
-        readableContent += `Banking Information:\n`;
-        readableContent += `  IBAN: ${messageData.banking.iban || 'Not provided'}\n`;
-        readableContent += `  BIC: ${messageData.banking.bic || 'Not provided'}\n\n`;
-      }
-      
-      // Add purchase details
-      if (messageData.purchaseDetails) {
-        readableContent += `Purchase Details:\n`;
-        readableContent += `  Own Account: ${messageData.purchaseDetails.ownAccount ? 'Yes' : 'No'}\n`;
-        readableContent += `  Third Party: ${messageData.purchaseDetails.thirdParty ? 'Yes' : 'No'}\n`;
-        
-        if (messageData.purchaseDetails.thirdParty) {
-          readableContent += `  Third Party Name: ${messageData.purchaseDetails.thirdPartyName || 'Not provided'}\n`;
-          readableContent += `  Third Party Address: ${messageData.purchaseDetails.thirdPartyAddress || 'Not provided'}\n`;
-        }
-        
-        if (messageData.purchaseDetails.products && messageData.purchaseDetails.products.length > 0) {
-          readableContent += `\n  Products:\n`;
-          messageData.purchaseDetails.products.forEach((product, index) => {
-            readableContent += `    Product ${index + 1}:\n`;
-            readableContent += `      Type: ${product.type || 'Not provided'}\n`;
-            readableContent += `      Unit: ${product.unit || 'Not provided'}\n`;
-            readableContent += `      Name: ${product.name || 'Not provided'}\n`;
-            readableContent += `      Weight: ${product.weight || 'Not provided'}\n`;
-            readableContent += `      Price: ${product.price || 'Not provided'}\n`;
-          });
-          readableContent += `\n  Subtotal: ${messageData.purchaseDetails.subtotal || '0.00'}\n\n`;
-        }
-      }
-      
-      // Add agreements
-      if (messageData.agreements) {
-        readableContent += `Agreements:\n`;
-        readableContent += `  Terms: ${messageData.agreements.terms ? 'Accepted' : 'Not accepted'}\n`;
-        readableContent += `  Cancellation: ${messageData.agreements.cancellation ? 'Accepted' : 'Not accepted'}\n`;
-        readableContent += `  Privacy: ${messageData.agreements.privacy ? 'Accepted' : 'Not accepted'}\n\n`;
-      }
     }
-    
-    // Save the readable content
-    fs.writeFileSync(
-      path.join(dataDir, readableFilename),
-      readableContent
-    );
-    
-    console.log(`Form data saved to ${path.join(dataDir, filename)}`);
-    console.log(`Readable version saved to ${path.join(dataDir, readableFilename)}`);
     
     // Try creating a Shopify metaobject using GraphQL API
     try {
-      // Parse the message JSON if it's a string
-      if (typeof formData.message === 'string') {
-        try {
-          messageData = JSON.parse(formData.message);
-        } catch (e) {
-          console.error('Error parsing message JSON:', e);
-          messageData = {};
-        }
-      }
-      
-      // Create metaobject entry in Shopify using GraphQL
       const metaobjectResponse = await createShopifyMetaobjectGraphQL(formData, messageData);
       console.log('Shopify metaobject created successfully:', metaobjectResponse);
       
-      // Return success response
       res.status(200).json({
         success: true,
         message: 'Form data received and stored successfully',
-        filename,
         shopifyMetaobject: metaobjectResponse
       });
     } catch (shopifyError) {
@@ -167,21 +74,11 @@ app.post('/api/submit-form', async (req, res) => {
         res.status(200).json({
           success: true,
           message: 'Form data stored successfully using REST API',
-          filename,
           shopifyMetaobject: restResponse
         });
       } catch (restError) {
         console.error('REST API fallback also failed:', restError);
-        
-        // Return error but indicate local storage succeeded
-        res.status(207).json({
-          success: true,
-          localStorageSuccess: true,
-          shopifySuccess: false,
-          message: 'Form data stored locally, but failed to create Shopify metaobject',
-          filename,
-          shopifyError: restError.message
-        });
+        throw restError;
       }
     }
   } catch (error) {
