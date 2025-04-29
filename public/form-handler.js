@@ -25,24 +25,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     const priceInput = row.querySelector('input[name^="price"]');
                     
                     if (typeSelect && nameInput && priceInput) {
-                        const imageNames = imageInput ? Array.from(imageInput.files).map(file => file.name) : [];
+                        const imageUrls = imageInput ? Array.from(imageInput.files).map(file => URL.createObjectURL(file)) : [];
                         
                         productItems.push({
                             type: typeSelect.value,
                             unit: unitSelect ? unitSelect.value : '',
                             name: nameInput.value,
                             weight: weightInput ? weightInput.value : '',
-                            images: imageNames,
+                            images: imageUrls,
                             price: priceInput.value
                         });
 
-                        // Display image names
+                        // Display image previews
                         const previewContainer = row.querySelector(`#preview-row-${index}`);
                         if (previewContainer) {
                             previewContainer.innerHTML = ''; // Clear previous previews
-                            imageNames.forEach(name => {
+                            imageUrls.forEach(url => {
                                 const img = document.createElement('img');
-                                img.alt = name; // Set the image name as alt text
+                                img.src = url;
                                 img.className = 'w-16 h-16 object-cover border rounded';
                                 previewContainer.appendChild(img);
                             });
@@ -94,8 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json' // Ensure the Accept header is set correctly
+                            'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(payload)
                     });
