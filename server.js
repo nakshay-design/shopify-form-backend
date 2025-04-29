@@ -200,9 +200,39 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
 
 // Fallback: Function to create a metaobject in Shopify using REST API
 async function createShopifyMetaobjectREST(formData, metaData) {
+  const handle = `form-submission-${Date.now()}`;
+
+  // Format purchase details as an HTML table
+  const purchaseDetailsTable = `
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Unit</th>
+          <th>Name</th>
+          <th>Weight</th>
+          <th>Price</th>
+          <th>Images</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${metaData.purchaseDetails.products.map(product => `
+          <tr>
+            <td>${product.type}</td>
+            <td>${product.unit}</td>
+            <td>${product.name}</td>
+            <td>${product.weight}</td>
+            <td>${product.price}</td>
+            <td>${product.images.join(', ')}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
   const metaobjectData = {
     metaobject: {
-      handle: `form-submission-${Date.now()}`,
+      handle,
       type: "form_submission",
       fields: [
         { key: "first_name", value: formData.firstname || "" },
