@@ -42,19 +42,19 @@ app.post('/api/submit-form', async (req, res) => {
     const formData = req.body;
     console.log('Received form submission:', formData);
     
-    let messageData = formData.message;
-    if (typeof messageData === 'string') {
+    let metaData = formData.meta;
+    if (typeof metaData === 'string') {
       try {
-        messageData = JSON.parse(messageData);
+        metaData = JSON.parse(metaData);
       } catch (e) {
-        console.error('Error parsing message JSON:', e);
-        messageData = {};
+        console.error('Error parsing meta JSON:', e);
+        metaData = {};
       }
     }
     
     // Try creating a Shopify metaobject using GraphQL API
     try {
-      const metaobjectResponse = await createShopifyMetaobjectGraphQL(formData, messageData);
+      const metaobjectResponse = await createShopifyMetaobjectGraphQL(formData, metaData);
       console.log('Shopify metaobject created successfully:', metaobjectResponse);
       
       res.status(200).json({
@@ -68,7 +68,7 @@ app.post('/api/submit-form', async (req, res) => {
       // Fall back to REST API if GraphQL fails
       try {
         console.log('Falling back to REST API...');
-        const restResponse = await createShopifyMetaobjectREST(formData, messageData);
+        const restResponse = await createShopifyMetaobjectREST(formData, metaData);
         console.log('Shopify metaobject created with REST API:', restResponse);
         
         res.status(200).json({
@@ -91,7 +91,7 @@ app.post('/api/submit-form', async (req, res) => {
 });
 
 // Function to create a metaobject in Shopify using GraphQL API (preferred method)
-async function createShopifyMetaobjectGraphQL(formData, messageData) {
+async function createShopifyMetaobjectGraphQL(formData, metaData) {
   const handle = `form-submission-${Date.now()}`;
   const mutation = `
     mutation CreateMetaobject($metaobject: MetaobjectCreateInput!) {
@@ -116,10 +116,9 @@ async function createShopifyMetaobjectGraphQL(formData, messageData) {
         { key: "name", value: formData.name || "" },
         { key: "email", value: formData.email || "" },
         { key: "phone", value: formData.phone || "" },
-        // { key: "address", value: JSON.stringify(messageData.address || {}) },
-        { key: "banking", value: JSON.stringify(messageData.banking || {}) },
-        { key: "purchase_details", value: JSON.stringify(messageData.purchaseDetails || {}) },
-        { key: "agreements", value: JSON.stringify(messageData.agreements || {}) },
+        { key: "address", value: JSON.stringify(metaData.address || {}) },
+        { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
+        { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
       ]
     }
@@ -159,7 +158,7 @@ async function createShopifyMetaobjectGraphQL(formData, messageData) {
 }
 
 // Fallback: Function to create a metaobject in Shopify using REST API
-async function createShopifyMetaobjectREST(formData, messageData) {
+async function createShopifyMetaobjectREST(formData, metaData) {
   const metaobjectData = {
     metaobject: {
       handle: `form-submission-${Date.now()}`,
@@ -168,10 +167,9 @@ async function createShopifyMetaobjectREST(formData, messageData) {
         { key: "name", value: formData.name || "" },
         { key: "email", value: formData.email || "" },
         { key: "phone", value: formData.phone || "" },
-       // { key: "address", value: JSON.stringify(messageData.address || {}) },
-        { key: "banking", value: JSON.stringify(messageData.banking || {}) },
-        { key: "purchase_details", value: JSON.stringify(messageData.purchaseDetails || {}) },
-        { key: "agreements", value: JSON.stringify(messageData.agreements || {}) },
+        { key: "address", value: JSON.stringify(metaData.address || {}) },
+        { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
+        { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
       ]
     }
