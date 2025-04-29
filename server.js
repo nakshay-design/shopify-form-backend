@@ -196,12 +196,7 @@ app.post('/api/submit-form', async (req, res) => {
 
 // Function to create a metaobject in Shopify using GraphQL API (preferred method)
 async function createShopifyMetaobjectGraphQL(formData, messageData) {
-  console.log('Creating Shopify metaobject with GraphQL API');
-  
-  // Generate a unique handle
   const handle = `form-submission-${Date.now()}`;
-  
-  // Create the GraphQL mutation
   const mutation = `
     mutation CreateMetaobject($metaobject: MetaobjectCreateInput!) {
       metaobjectCreate(metaobject: $metaobject) {
@@ -217,7 +212,6 @@ async function createShopifyMetaobjectGraphQL(formData, messageData) {
     }
   `;
   
-  // Format the data for fields
   const variables = {
     metaobject: {
       handle,
@@ -270,9 +264,6 @@ async function createShopifyMetaobjectGraphQL(formData, messageData) {
 
 // Fallback: Function to create a metaobject in Shopify using REST API
 async function createShopifyMetaobjectREST(formData, messageData) {
-  console.log('Creating Shopify metaobject with REST API');
-  
-  // Construct the metaobject data
   const metaobjectData = {
     metaobject: {
       handle: `form-submission-${Date.now()}`,
