@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             subtotal: formJson.subtotal || '0.00'
                         },
                         agreements: {
-                            terms: formJson.terms === 'on',
-                            cancellation: formJson.cancellation === 'on',
-                            privacy: formJson.privacy === 'on'
+                            termsandcondition: formJson.terms === 'on',
+                            cancellationpolicy: formJson.cancellation === 'on',
+                            privacypolicy: formJson.privacy === 'on'
                         }
                     }
                 };
