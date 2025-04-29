@@ -107,6 +107,8 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
       }
     }
   `;
+  console.log('formData');
+  console.log(formData);
   
   const variables = {
     metaobject: {
