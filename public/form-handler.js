@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const unitSelect = row.querySelector('select[name^="unit"]');
                     const nameInput = row.querySelector('input[name^="tax"]');
                     const weightInput = row.querySelector('input[name^="weight"]');
-                    const imageInput = row.querySelector('input[name^="product_image"]');
+                    const imageInput = row.querySelector('input[name^="image[row-"]');
                     const priceInput = row.querySelector('input[name^="price"]');
                     
                     if (typeSelect && nameInput && priceInput) {
-                        const imageUrls = Array.from(imageInput.files).map(file => URL.createObjectURL(file));
+                        const imageUrls = imageInput ? Array.from(imageInput.files).map(file => URL.createObjectURL(file)) : [];
                         
                         productItems.push({
                             type: typeSelect.value,
