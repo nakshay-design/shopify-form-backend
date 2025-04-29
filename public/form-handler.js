@@ -35,6 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
                             images: imageUrls,
                             price: priceInput.value
                         });
+
+                        // Display image previews
+                        const previewContainer = row.querySelector(`#preview-row-${index}`);
+                        if (previewContainer) {
+                            previewContainer.innerHTML = ''; // Clear previous previews
+                            imageUrls.forEach(url => {
+                                const img = document.createElement('img');
+                                img.src = url;
+                                img.className = 'w-16 h-16 object-cover border rounded';
+                                previewContainer.appendChild(img);
+                            });
+                        }
                     }
                 });
                 
