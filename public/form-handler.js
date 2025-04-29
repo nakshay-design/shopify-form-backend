@@ -25,24 +25,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     const priceInput = row.querySelector('input[name^="price"]');
                     
                     if (typeSelect && nameInput && priceInput) {
-                        const imageUrls = imageInput ? Array.from(imageInput.files).map(file => URL.createObjectURL(file)) : [];
+                        const imageNames = imageInput ? Array.from(imageInput.files).map(file => file.name) : [];
                         
                         productItems.push({
                             type: typeSelect.value,
                             unit: unitSelect ? unitSelect.value : '',
                             name: nameInput.value,
                             weight: weightInput ? weightInput.value : '',
-                            images: imageUrls,
+                            images: imageNames,
                             price: priceInput.value
                         });
 
-                        // Display image previews
+                        // Display image names
                         const previewContainer = row.querySelector(`#preview-row-${index}`);
                         if (previewContainer) {
                             previewContainer.innerHTML = ''; // Clear previous previews
-                            imageUrls.forEach(url => {
+                            imageNames.forEach(name => {
                                 const img = document.createElement('img');
-                                img.src = url;
+                                img.alt = name; // Set the image name as alt text
                                 img.className = 'w-16 h-16 object-cover border rounded';
                                 previewContainer.appendChild(img);
                             });
