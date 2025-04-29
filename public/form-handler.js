@@ -48,21 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create the payload to send to the server
                 const payload = {
-                    first_name: formJson.firstname || '',
-                    last_name: formJson.lastname || '',
+                    name: `${formJson.firstname || ''} ${formJson.lastname || ''}`,
                     email: formJson.email || '',
-                    telephone: formJson.phone || '',
-                    street_address: formJson.street_address || '',
-                    city: formJson.city || '',
-                    state: formJson.state || '',
-                    country: formJson.country || '',
-                    zip_code: formJson.zipcode || '',
-                    iban: formJson.iban || '',
-                    bic: formJson.bic || '',
-                    own_account: formJson.own_account === 'on',
-                    thirdParty: formJson.thirdParty === 'on',
-                    third_party_name: formJson.third_party_name || '',
-                    third_party_address: formJson.third_party_address || '',
+                    phone: formJson.phone || '',
                     meta: {
                         address: {
                             street: formJson.street_address || '',
@@ -71,7 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
                             country: formJson.country || '',
                             zipcode: formJson.zipcode || ''
                         },
+                        banking: {
+                            iban: formJson.iban || '',
+                            bic: formJson.bic || ''
+                        },
                         purchaseDetails: {
+                            ownAccount: formJson.own_account === 'on',
+                            thirdParty: formJson.thirdParty === 'on',
+                            thirdPartyName: formJson.third_party_name || '',
+                            thirdPartyAddress: formJson.third_party_address || '',
                             products: productItems,
                             subtotal: formJson.subtotal || '0.00'
                         },
