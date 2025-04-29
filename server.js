@@ -268,20 +268,21 @@ async function createShopifyMetaobjectREST(formData, metaData) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json', // Ensure the Accept header is set correctly
       'X-Shopify-Access-Token': SHOPIFY_ACCESS_TOKEN
     },
     body: JSON.stringify(metaobjectData)
   });
-
+  
   const responseText = await response.text();
   console.log('REST API Response Status:', response.status);
   console.log('REST API Response Headers:', Object.fromEntries([...response.headers]));
   console.log('REST API Response Body:', responseText);
-
+  
   if (!response.ok) {
     throw new Error(`Shopify REST API error: ${response.status} ${responseText}`);
   }
-
+  
   // Parse the response if it's valid JSON
   try {
     return JSON.parse(responseText);
