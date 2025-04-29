@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     state: formJson.state || '',
                     country: formJson.country || '',
                     zipcode: formJson.zipcode || '',
+                    iban: formJson.iban || '',
+                    bic: formJson.bic || '',
                     meta: {
                         // address: {
                         //     street: formJson.street_address || '',
@@ -65,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         //     country: formJson.country || '',
                         //     zipcode: formJson.zipcode || ''
                         // },
-                        banking: {
-                            iban: formJson.iban || '',
-                            bic: formJson.bic || ''
-                        },
+                        // banking: {
+                        //     iban: formJson.iban || '',
+                        //     bic: formJson.bic || ''
+                        // },
                         purchaseDetails: {
                             ownAccount: formJson.own_account === 'on',
                             thirdParty: formJson.thirdParty === 'on',
