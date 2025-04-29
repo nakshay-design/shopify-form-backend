@@ -124,7 +124,9 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
         { key: "state", value: formData.state || "" },
         { key: "country", value: formData.country || "" },
         { key: "zip_code", value: formData.zipcode || "" },
-        { key: "address", value: JSON.stringify(metaData.address || {}) },
+        { key: "iban", value: formData.iban || "" },
+        { key: "bic", value: formData.bic || "" },
+        //{ key: "address", value: JSON.stringify(metaData.address || {}) },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
@@ -181,7 +183,9 @@ async function createShopifyMetaobjectREST(formData, metaData) {
         { key: "state", value: formData.state || "" },
         { key: "country", value: formData.country || "" },
         { key: "zip_code", value: formData.zipcode || "" },
-        { key: "address", value: JSON.stringify(metaData.address || {}) },
+        { key: "iban", value: formData.iban || "" },
+        { key: "bic", value: formData.bic || "" },
+        //{ key: "address", value: JSON.stringify(metaData.address || {}) },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
