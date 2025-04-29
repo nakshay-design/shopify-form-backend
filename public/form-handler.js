@@ -76,11 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         //     bic: formJson.bic || ''
                         // },
                         ownAccount: formJson.own_account === 'on',
+                        thirdParty: formJson.thirdParty === 'on',
+                        thirdPartyName: formJson.third_party_name || '',
+                        thirdPartyAddress: formJson.third_party_address || '',
                         purchaseDetails: {
-                            ownAccount: formJson.own_account === 'on',
-                            thirdParty: formJson.thirdParty === 'on',
-                            thirdPartyName: formJson.third_party_name || '',
-                            thirdPartyAddress: formJson.third_party_address || '',
+                            // ownAccount: formJson.own_account === 'on',
+                            
                             products: productItems,
                             subtotal: formJson.subtotal || '0.00'
                         },
