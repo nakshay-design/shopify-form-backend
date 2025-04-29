@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const rows = document.querySelectorAll('#repeaterRows tr');
                 
                 rows.forEach((row, index) => {
-                    const typeSelect = row.querySelector('select[name^="product_type"]');
-                    const unitSelect = row.querySelector('select[name^="product_unit"]');
-                    const nameInput = row.querySelector('input[name^="product_name"]');
-                    const weightInput = row.querySelector('input[name^="product_weight"]');
+                    const typeSelect = row.querySelector('select[name^="description"]');
+                    const unitSelect = row.querySelector('select[name^="unit"]');
+                    const nameInput = row.querySelector('input[name^="tax"]');
+                    const weightInput = row.querySelector('input[name^="weight"]');
                     const imageInput = row.querySelector('input[name^="product_image"]');
-                    const priceInput = row.querySelector('input[name^="product_price"]');
+                    const priceInput = row.querySelector('input[name^="price"]');
                     
                     if (typeSelect && nameInput && priceInput) {
                         productItems.push({
