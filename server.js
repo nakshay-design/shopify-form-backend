@@ -93,6 +93,29 @@ app.post('/api/submit-form', async (req, res) => {
 // Function to create a metaobject in Shopify using GraphQL API (preferred method)
 async function createShopifyMetaobjectGraphQL(formData, metaData) {
   const handle = `form-submission-${Date.now()}`;
+  
+  // Format purchase details as an HTML table
+  const purchaseDetailsTable = `
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Unit</th>
+        <th>Name</th>
+        <th>Weight</th>
+        <th>Price</th>
+      </tr>
+      ${metaData.purchaseDetails.products.map(product => `
+        <tr>
+          <td>${product.type}</td>
+          <td>${product.unit}</td>
+          <td>${product.name}</td>
+          <td>${product.weight}</td>
+          <td>${product.price}</td>
+        </tr>
+      `).join('')}
+    </table>
+  `;
+
   const mutation = `
     mutation CreateMetaobject($metaobject: MetaobjectCreateInput!) {
       metaobjectCreate(metaobject: $metaobject) {
@@ -107,8 +130,6 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
       }
     }
   `;
-  console.log('formData');
-  console.log(formData);
 
   const variables = {
     metaobject: {
@@ -131,19 +152,19 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
         { key: "third_party_name", value: JSON.stringify(metaData.thirdPartyName || "") },
         { key: "third_party_address", value: JSON.stringify(metaData.thirdPartyAddress || "") },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
-        // { key: "product_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
+        { key: "product_details", value: purchaseDetailsTable }, // Add HTML table to product_details
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
       ]
     }
   };
-  
+
   console.log('GraphQL Variables:', JSON.stringify(variables, null, 2));
-  
+
   // Send to Shopify GraphQL API
   const apiUrl = `https://${SHOPIFY_SHOP}/admin/api/2024-01/graphql.json`;
   console.log('Sending GraphQL request to:', apiUrl);
-  
+
   const response = await fetch(apiUrl, {
     method: 'POST',
     headers: {
@@ -155,19 +176,19 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
       variables
     })
   });
-  
+
   const responseData = await response.json();
-  
+
   // Log response data for debugging
   console.log('GraphQL Response Status:', response.status);
   console.log('GraphQL Response:', JSON.stringify(responseData, null, 2));
-  
+
   if (response.status >= 400 || (responseData.data?.metaobjectCreate?.userErrors?.length > 0)) {
     const errors = responseData.data?.metaobjectCreate?.userErrors || [];
     const errorMessages = errors.map(err => `${err.field}: ${err.message}`).join(', ');
     throw new Error(`Shopify GraphQL API error: ${response.status} ${errorMessages || JSON.stringify(responseData.errors)}`);
   }
-  
+
   return responseData.data.metaobjectCreate.metaobject;
 }
 
