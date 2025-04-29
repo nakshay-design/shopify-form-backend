@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     last_name: formJson.lastname || '',
                     email: formJson.email || '',
                     telephone: formJson.phone || '',
-                    street: formJson.street_address || '',
+                    street_address: formJson.street_address || '',
                     city: formJson.city || '',
                     state: formJson.state || '',
                     country: formJson.country || '',
@@ -64,6 +64,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     third_party_name: formJson.third_party_name || '',
                     third_party_name: formJson.third_party_name || '',
                     meta: {
+                        address: {
+                            street: formJson.street_address || '',
+                            city: formJson.city || '',
+                            state: formJson.state || '',
+                            country: formJson.country || '',
+                            zipcode: formJson.zipcode || ''
+                        },
                         purchaseDetails: {
                             products: productItems,
                             subtotal: formJson.subtotal || '0.00'
