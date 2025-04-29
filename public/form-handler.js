@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const forms = document.querySelectorAll('form');
+    const forms = document.querySelectorAll('purchaseForm');
     
     forms.forEach(form => {
         // Make sure we're capturing the submit event properly
