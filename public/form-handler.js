@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     own_account: formJson.own_account === 'on',
                     thirdParty: formJson.thirdParty === 'on',
                     third_party_name: formJson.third_party_name || '',
-                    third_party_name: formJson.third_party_name || '',
+                    third_party_address: formJson.third_party_address || '',
                     meta: {
                         address: {
                             street: formJson.street_address || '',
