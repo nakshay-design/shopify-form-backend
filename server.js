@@ -169,6 +169,7 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json', // Ensure the Accept header is set correctly
       'X-Shopify-Access-Token': SHOPIFY_ACCESS_TOKEN
     },
     body: JSON.stringify({
