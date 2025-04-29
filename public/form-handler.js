@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     email: formJson.email || '',
                     phone: formJson.phone || '',
                     meta: {
-                        address: {
-                            street: formJson.street_address || '',
-                            city: formJson.city || '',
-                            state: formJson.state || '',
-                            country: formJson.country || '',
-                            zipcode: formJson.zipcode || ''
-                        },
+                        // address: {
+                        //     street: formJson.street_address || '',
+                        //     city: formJson.city || '',
+                        //     state: formJson.state || '',
+                        //     country: formJson.country || '',
+                        //     zipcode: formJson.zipcode || ''
+                        // },
                         banking: {
                             iban: formJson.iban || '',
                             bic: formJson.bic || ''
