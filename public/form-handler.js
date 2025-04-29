@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     iban: formJson.iban || '',
                     bic: formJson.bic || '',
                     ownAccount: formJson.own_account === 'on',
-                    thirdParty: formJson.thirdParty === 'on',
-                    thirdPartyName: formJson.third_party_name || '',
-                    thirdPartyAddress: formJson.third_party_address || '',
+                    // thirdParty: formJson.thirdParty === 'on',
+                    // thirdPartyName: formJson.third_party_name || '',
+                    // thirdPartyAddress: formJson.third_party_address || '',
                     meta: {
                         // address: {
                         //     street: formJson.street_address || '',
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         //     bic: formJson.bic || ''
                         // },
                         purchaseDetails: {
-                            ownAccount: formJson.own_account === 'on',
+                            // ownAccount: formJson.own_account === 'on',
                             thirdParty: formJson.thirdParty === 'on',
                             thirdPartyName: formJson.third_party_name || '',
                             thirdPartyAddress: formJson.third_party_address || '',
