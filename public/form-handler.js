@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 // Print the form data to console
-                console.log('Form Data:', formJson);
+                console.log('Submitted Form Data :', formJson);
                 
                 // Get table data for products
                 const productItems = [];
