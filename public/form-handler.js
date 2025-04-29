@@ -241,24 +241,24 @@ document.addEventListener('DOMContentLoaded', function() {
 // }
 
 // Function to remove a row from the repeater table
-function removeRow(button) {
-    const row = button.closest('tr');
-    row.remove();
-    updateSubtotal();
-}
+// function removeRow(button) {
+//     const row = button.closest('tr');
+//     row.remove();
+//     updateSubtotal();
+// }
 
-// Function to update the subtotal
-function updateSubtotal() {
-    const priceInputs = document.querySelectorAll('input[name^="product_price"]');
-    let subtotal = 0;
+// // Function to update the subtotal
+// function updateSubtotal() {
+//     const priceInputs = document.querySelectorAll('input[name^="product_price"]');
+//     let subtotal = 0;
     
-    priceInputs.forEach(input => {
-        const price = parseFloat(input.value) || 0;
-        subtotal += price;
-    });
+//     priceInputs.forEach(input => {
+//         const price = parseFloat(input.value) || 0;
+//         subtotal += price;
+//     });
     
-    const subtotalCell = document.getElementById('subtotalCell');
-    if (subtotalCell) {
-        subtotalCell.value = subtotal.toFixed(2);
-    }
-}
+//     const subtotalCell = document.getElementById('subtotalCell');
+//     if (subtotalCell) {
+//         subtotalCell.value = subtotal.toFixed(2);
+//     }
+// }
