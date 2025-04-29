@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         //     iban: formJson.iban || '',
                         //     bic: formJson.bic || ''
                         // },
+                        ownAccount: formJson.own_account === 'on',
                         purchaseDetails: {
                             ownAccount: formJson.own_account === 'on',
                             thirdParty: formJson.thirdParty === 'on',
