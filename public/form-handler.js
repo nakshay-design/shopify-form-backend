@@ -94,7 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json' // Ensure the Accept header is set correctly
                         },
                         body: JSON.stringify(payload)
                     });
