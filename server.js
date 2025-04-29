@@ -216,6 +216,7 @@ async function createShopifyMetaobjectREST(formData, metaData) {
         { key: "third_party_name", value: JSON.stringify(metaData.thirdPartyName || "") },
         { key: "third_party_address", value: JSON.stringify(metaData.thirdPartyAddress || "") },
         { key: "purchase_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
+        { key: "product_details", value: purchaseDetailsTable }, // Add HTML table to product_details
         // { key: "product_details", value: JSON.stringify(metaData.purchaseDetails || {}) },
         { key: "agreements", value: JSON.stringify(metaData.agreements || {}) },
         { key: "submission_date", value: new Date().toISOString() }
