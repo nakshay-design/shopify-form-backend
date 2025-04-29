@@ -113,7 +113,8 @@ async function createShopifyMetaobjectGraphQL(formData, metaData) {
       handle,
       type: "form_submission",
       fields: [
-        { key: "name", value: formData.name || "" },
+        { key: "first_name", value: formData.firstname || "" },
+        { key: "last_name", value: formData.lastname || "" },
         { key: "email", value: formData.email || "" },
         { key: "phone", value: formData.phone || "" },
         { key: "address", value: JSON.stringify(metaData.address || {}) },
@@ -164,7 +165,8 @@ async function createShopifyMetaobjectREST(formData, metaData) {
       handle: `form-submission-${Date.now()}`,
       type: "form_submission",
       fields: [
-        { key: "name", value: formData.name || "" },
+        { key: "first_name", value: formData.firstname || "" },
+        { key: "last_name", value: formData.lastname || "" },
         { key: "email", value: formData.email || "" },
         { key: "phone", value: formData.phone || "" },
         { key: "address", value: JSON.stringify(metaData.address || {}) },

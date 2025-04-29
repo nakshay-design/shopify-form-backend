@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Create the payload to send to the server
                 const payload = {
-                    name: `${formJson.firstname || ''} ${formJson.lastname || ''}`,
+                    firstname: formJson.firstname || '',
+                    lastname: formJson.lastname || '',
                     email: formJson.email || '',
                     phone: formJson.phone || '',
                     meta: {
